@@ -10,9 +10,9 @@ import { services, getServiceBySlug } from '@/data/services'
 import { companyInfo } from '@/data/company'
 
 interface ServicePageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -22,7 +22,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const service = getServiceBySlug(params.slug)
+  const { slug } = await params
+  const service = getServiceBySlug(slug)
   
   if (!service) {
     return {
@@ -41,8 +42,9 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   }
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceBySlug(params.slug)
+export default async function ServicePage({ params }: ServicePageProps) {
+  const { slug } = await params
+  const service = getServiceBySlug(slug)
 
   if (!service) {
     notFound()
