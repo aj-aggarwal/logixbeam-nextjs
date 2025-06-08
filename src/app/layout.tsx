@@ -1,13 +1,38 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import { companyInfo, jsonLdData } from "@/data/company";
 import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
 
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
   display: 'swap',
 });
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: 'swap',
+});
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  colorScheme: 'light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#3b82f6' },
+    { media: '(prefers-color-scheme: dark)', color: '#1e40af' },
+  ],
+}
 
 export const metadata: Metadata = {
   title: {
@@ -32,6 +57,9 @@ export const metadata: Metadata = {
   creator: companyInfo.name,
   publisher: companyInfo.name,
   metadataBase: new URL('https://logixbeam.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -71,6 +99,12 @@ export const metadata: Metadata = {
     shortcut: '/images/logo-16x16.png',
     apple: '/images/apple-touch-icon.png',
   },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+  category: 'technology',
+  classification: 'Business',
+  referrer: 'origin-when-cross-origin',
   manifest: '/manifest.json',
 };
 
@@ -80,7 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${playfair.variable} ${poppins.variable}`}>
       <head>
         <link
           rel="stylesheet"
@@ -96,7 +130,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${poppins.className} antialiased text-gray-900 bg-white`}>
         {children}
         <WhatsAppFloat />
       </body>

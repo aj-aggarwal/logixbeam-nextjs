@@ -80,7 +80,7 @@ export function ContactSection() {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to start your project? Contact us today and let's discuss how we can help bring your ideas to life.
+            Ready to start your project? Contact us today and let&apos;s discuss how we can help bring your ideas to life.
           </p>
         </div>
 

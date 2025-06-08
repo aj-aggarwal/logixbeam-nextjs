@@ -232,7 +232,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               Ready to Get Started?
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Let's discuss your {service.title.toLowerCase()} project and bring your vision to life.
+              Let&apos;s discuss your {service.title.toLowerCase()} project and bring your vision to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="outline" className="bg-white text-blue-600 hover:bg-gray-100" asChild>
