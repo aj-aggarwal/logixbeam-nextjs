@@ -38,7 +38,7 @@ function SkeletonCard() {
 
 function SkeletonHero() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-sky-900">
       <div className="text-center space-y-8 max-w-4xl mx-auto px-4">
         <Skeleton className="h-8 w-48 mx-auto bg-white/20" />
         <div className="space-y-4">

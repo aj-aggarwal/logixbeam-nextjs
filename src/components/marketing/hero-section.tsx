@@ -1,157 +1,257 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { companyInfo } from '@/data/company'
 
 export function HeroSection() {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white overflow-hidden pt-16">
-      {/* Animated Background Elements */}
+    <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden pt-32">
+      {/* Hero Banner Background */}
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/images/hero-banner.jpg')`,
+          }}
+        />
+        {/* Professional overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-blue-900/85 to-slate-900/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-blue-900/80" />
+      </div>
+
+      {/* Subtle Geometric Accents */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Professional floating elements */}
+        {isClient && [...Array(8)].map((_, i) => {
+          const positions = [
+            { x1: 15, y1: 20, x2: 25, y2: 30 },
+            { x1: 80, y1: 25, x2: 85, y2: 35 },
+            { x1: 10, y1: 60, x2: 20, y2: 70 },
+            { x1: 75, y1: 70, x2: 85, y2: 80 },
+            { x1: 90, y1: 15, x2: 95, y2: 25 },
+            { x1: 5, y1: 85, x2: 15, y2: 90 },
+            { x1: 40, y1: 10, x2: 50, y2: 20 },
+            { x1: 60, y1: 85, x2: 70, y2: 95 }
+          ];
+          
+          const pos = positions[i] || positions[0];
+          
+          return (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: `${pos.x1}vw`,
+                y: `${pos.y1}vh`,
+                opacity: 0 
+              }}
+              animate={{
+                x: [`${pos.x1}vw`, `${pos.x2}vw`, `${pos.x1}vw`],
+                y: [`${pos.y1}vh`, `${pos.y2}vh`, `${pos.y1}vh`],
+                opacity: [0, 0.15, 0],
+                scale: [0.8, 1, 0.8],
+              }}
+              transition={{
+                duration: 15 + (i * 2),
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.8,
+              }}
+              className={`absolute w-4 h-4 ${
+                i % 3 === 0 
+                  ? 'bg-blue-400/20 rounded-sm rotate-45' 
+                  : i % 3 === 1 
+                  ? 'bg-sky-400/20 rounded-full' 
+                  : 'bg-slate-300/20 rounded-sm'
+              } blur-sm`}
+            />
+          )
+        })}
+
+        {/* Subtle grid pattern */}
         <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
+          animate={{ opacity: [0.02, 0.08, 0.02] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
           }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-purple-500/10 rounded-full blur-xl"
-        />
-        <motion.div
-          animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/2 left-1/2 w-24 h-24 bg-white/5 rounded-full blur-lg"
         />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto"
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="max-w-6xl mx-auto"
         >
-
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-heading text-5xl sm:text-6xl lg:text-8xl font-bold mb-8 leading-tight"
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+            className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight"
           >
-            <span className="block text-white">
-              {companyInfo.hero.title.split(' ').slice(0, 2).join(' ')}
-            </span>
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent">
-              {companyInfo.hero.title.split(' ').slice(2).join(' ')}
-            </span>
+            <motion.span 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="block text-white drop-shadow-2xl"
+            >
+              {companyInfo.hero.title.split(' ').slice(0, -3).join(' ')}
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="block bg-gradient-to-r from-blue-400 via-sky-400 to-slate-300 bg-clip-text text-transparent"
+              style={{
+                backgroundSize: '200% 200%',
+                animation: 'gradient-shift 4s ease infinite',
+              }}
+            >
+              {companyInfo.hero.title.split(' ').slice(-3).join(' ')}
+            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="font-body text-xl sm:text-2xl lg:text-3xl text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed font-light"
+            transition={{ duration: 1, delay: 0.9 }}
+            className="font-body text-lg sm:text-xl lg:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed font-light"
           >
-            {companyInfo.hero.subtitle}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2, delay: 1.2 }}
+            >
+              {companyInfo.hero.subtitle}
+            </motion.span>
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+            transition={{ duration: 1, delay: 1.1 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10"
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 20px 80px rgba(30, 64, 175, 0.4)"
+              }}
               whileTap={{ scale: 0.95 }}
+              className="relative group"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-sky-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
               <Button 
                 size="xl" 
                 variant="gradient" 
-                className="text-lg px-10 py-5 font-semibold shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 animate-pulse-glow"
+                className="relative text-base px-8 py-4 font-bold rounded-xl transform transition hover:scale-105 bg-gradient-to-r from-blue-800 to-sky-500"
                 asChild
               >
-                <Link href="/#services" className="font-poppins">
-                  <i className="fas fa-rocket mr-2"></i>
+                <Link href="/#services" className="font-poppins flex items-center">
+                  <motion.i 
+                    className="fas fa-code mr-3 text-xl"
+                    animate={{ rotate: [0, 5, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 4 }}
+                  />
                   {companyInfo.hero.ctaText}
                 </Link>
               </Button>
             </motion.div>
             
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: "rgba(255, 255, 255, 0.1)"
+              }}
               whileTap={{ scale: 0.95 }}
+              className="relative group"
             >
               <Button 
                 size="xl" 
                 variant="outline" 
-                className="text-lg px-10 py-5 font-semibold bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:border-white/50"
+                className="text-base px-8 py-4 font-semibold bg-white/10 border-2 border-slate-300/30 text-white hover:bg-white/15 backdrop-blur-lg transition-all duration-300 hover:border-slate-300/60 rounded-xl"
                 asChild
               >
-                <Link href="/#contact" className="font-poppins">
-                  <i className="fas fa-comment-dots mr-2"></i>
+                <Link href="/#contact" className="font-poppins flex items-center">
+                  <motion.i 
+                    className="fas fa-handshake mr-3 text-xl"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                  />
                   Get Free Consultation
                 </Link>
               </Button>
             </motion.div>
           </motion.div>
 
-          {/* Trust Indicators */}
+          {/* Professional Company Highlights */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="pt-8 pb-20 border-t border-white/20"
+            transition={{ duration: 1, delay: 1.3 }}
+            className="pt-4 pb-8 relative"
           >
-            <p className="font-body text-sm text-blue-200 mb-6 font-medium">Trusted by innovative companies worldwide</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="w-24 h-px bg-gradient-to-r from-transparent via-slate-300/30 to-transparent mx-auto mb-6"
+            />
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 max-w-3xl mx-auto">
               {[
-                { number: '50+', label: 'Projects Delivered', icon: 'fas fa-rocket' },
-                { number: '5+', label: 'Years Experience', icon: 'fas fa-calendar-alt' },
-                { number: '24/7', label: 'Support Available', icon: 'fas fa-headset' },
-                { number: '100%', label: 'Client Satisfaction', icon: 'fas fa-heart' }
+                { title: 'Expert Development', description: 'Cutting-edge solutions with modern technologies', icon: 'fas fa-laptop-code' },
+                { title: 'Dedicated Support', description: '24/7 technical assistance and maintenance', icon: 'fas fa-headset' },
+                { title: 'Scalable Solutions', description: 'Built to grow with your business needs', icon: 'fas fa-chart-line' }
               ].map((item, index) => (
                 <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                  className="text-center group"
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: 1.7 + index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    y: -2
+                  }}
+                  className="text-center group cursor-pointer p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300"
                 >
-                  <div className="flex items-center justify-center space-x-2 mb-1">
-                    <i className={`${item.icon} text-blue-300 text-lg group-hover:text-white transition-colors`}></i>
-                    <span className="font-heading text-2xl font-bold text-white">{item.number}</span>
-                  </div>
-                  <span className="font-body text-xs text-blue-200 font-medium">{item.label}</span>
+                  <motion.div
+                    whileHover={{ rotate: [0, -5, 5, 0] }}
+                    transition={{ duration: 0.5 }}
+                    className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-sky-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:from-blue-500/30 group-hover:to-sky-500/30 transition-all duration-300"
+                  >
+                    <i className={`${item.icon} text-blue-300 text-xl group-hover:text-white transition-colors duration-300`}></i>
+                  </motion.div>
+                  <h3 className="font-heading text-lg font-bold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-xs text-slate-300 font-medium leading-relaxed">
+                    {item.description}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -159,28 +259,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center space-y-2"
-        >
-          <span className="font-body text-xs text-blue-200 font-medium">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full p-1">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-3 bg-white/60 rounded-full mx-auto"
-            />
-          </div>
-        </motion.div>
-      </motion.div>
+
     </section>
   )
 } 

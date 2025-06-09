@@ -20,6 +20,7 @@ export function Navigation() {
   }, [])
 
   const navItems = [
+    { href: "/", label: "Home" },
     { href: "/#services", label: "Services" },
     { href: "/#about", label: "About" },
     { href: "/#contact", label: "Contact" },
@@ -134,7 +135,7 @@ export function Navigation() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors duration-200 rounded-lg font-medium"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200 rounded-lg font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}

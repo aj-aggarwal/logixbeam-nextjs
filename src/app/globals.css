@@ -2,19 +2,19 @@
 
 /* Custom properties for LogixBeam theme */
 @theme {
-  --color-primary: #3b82f6;
+  --color-primary: #1e40af;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
+  --color-secondary: #f8fafc;
   --color-secondary-foreground: #0f172a;
   --color-muted: #f1f5f9;
   --color-muted-foreground: #64748b;
-  --color-accent: #f1f5f9;
+  --color-accent: #f8fafc;
   --color-accent-foreground: #0f172a;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-border: #e5e7eb;
+  --color-border: #e2e8f0;
   --color-input: #e2e8f0;
-  --color-ring: #3b82f6;
+  --color-ring: #1e40af;
   --color-background: #ffffff;
   --color-foreground: #0f172a;
   --color-card: #ffffff;
@@ -29,8 +29,8 @@
   --font-family-poppins: "Poppins", "var(--font-poppins)", system-ui, sans-serif;
   
   /* Custom gradients */
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --gradient-primary: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+  --gradient-secondary: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
 }
 
 /* Base typography improvements */
@@ -108,21 +108,21 @@ h3 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(45deg, #1e40af, #0ea5e9);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #2563eb, #7c3aed);
+  background: linear-gradient(45deg, #1e3a8a, #0284c7);
 }
 
 /* Enhanced focus styles */
 :focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -130,7 +130,7 @@ h3 {
 /* Selection styling */
 ::selection {
   background-color: #dbeafe;
-  color: #1e40af;
+  color: #1e3a8a;
 }
 
 /* Smooth scaling for interactive elements */
@@ -155,11 +155,11 @@ h3 {
 }
 
 .shadow-glow {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 20px rgba(30, 64, 175, 0.15);
 }
 
-.shadow-glow-purple {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+.shadow-glow-blue {
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
 }
 
 /* Animation keyframes */
@@ -169,13 +169,46 @@ h3 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(30, 64, 175, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(30, 64, 175, 0.6); }
 }
 
 @keyframes shimmer {
   0% { background-position: -1000px 0; }
   100% { background-position: 1000px 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-30px) translateX(10px) scale(1.1);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translateY(-10px) translateX(-15px) scale(0.9);
+    opacity: 0.5;
+  }
 }
 
 .animate-float {
@@ -190,6 +223,19 @@ h3 {
   animation: shimmer 2s infinite;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   background-size: 1000px 100%;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 4s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.animate-particle-float {
+  animation: particle-float 8s ease-in-out infinite;
 }
 
 /* Better line clamping */
@@ -229,23 +275,19 @@ h3 {
 /* Custom utilities */
 .container {
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 @media (min-width: 640px) {
   .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 0 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 0 2rem;
   }
 }
 

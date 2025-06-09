@@ -50,12 +50,12 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="inline-flex items-center px-4 py-2 mb-6 bg-blue-100 text-blue-600 rounded-full text-sm font-medium"
+            className="inline-flex items-center px-4 py-2 mb-6 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
           >
             <motion.span
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="w-2 h-2 bg-blue-500 rounded-full mr-2"
+              className="w-2 h-2 bg-blue-600 rounded-full mr-2"
             />
             Our Services
           </motion.div>
@@ -85,7 +85,7 @@ export function ServicesSection() {
               className="group"
             >
               <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 border-0 bg-white/70 backdrop-blur-sm">
-                <CardContent className="p-0">
+                <CardContent className="p-0 flex flex-col h-full">
                   {/* Service Image */}
                   <div className="relative h-48 overflow-hidden">
                     <motion.div
@@ -107,10 +107,10 @@ export function ServicesSection() {
                     {/* Overlay */}
                     <motion.div
                       animate={{
-                        opacity: hoveredService === service.slug ? 0.8 : 0.4,
+                        opacity: hoveredService === service.slug ? 0.6 : 0.3,
                       }}
                       transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-600/50 to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-700/30 to-transparent"
                     />
                     
                     {/* Icon */}
@@ -148,13 +148,13 @@ export function ServicesSection() {
                   </div>
 
                   {/* Service Content */}
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <motion.h3
                       animate={{
-                        color: hoveredService === service.slug ? '#2563eb' : '#111827',
+                        color: hoveredService === service.slug ? '#1e40af' : '#111827',
                       }}
                       transition={{ duration: 0.3 }}
-                      className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors"
+                      className="text-xl font-bold mb-3 group-hover:text-blue-800 transition-colors"
                     >
                       {service.title}
                     </motion.h3>
@@ -173,7 +173,7 @@ export function ServicesSection() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.3, delay: techIndex * 0.1 }}
                             viewport={{ once: true }}
-                            className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full font-medium"
+                            className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full font-medium"
                           >
                             {tech}
                           </motion.span>
@@ -186,13 +186,16 @@ export function ServicesSection() {
                       </div>
                     )}
 
+                    {/* Spacer to push button to bottom */}
+                    <div className="flex-grow"></div>
+
                     {/* Learn More Button */}
                     <motion.div
                       animate={{
                         scale: hoveredService === service.slug ? 1.05 : 1,
                       }}
                       transition={{ duration: 0.3 }}
-                      className="pt-4 border-t border-gray-100"
+                      className="pt-4 border-t border-gray-100 mt-auto"
                     >
                       <Button
                         variant="ghost"

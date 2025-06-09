@@ -50,7 +50,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     notFound()
   }
 
-  const whatsappUrl = `https://wa.me/${companyInfo.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}?text=Hi! I'm interested in ${service.title} services. Can you provide more information?`
+  const whatsappUrl = `https://wa.me/${companyInfo.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}?text=Hi, LogixBeam Team! I'm interested in your ${service.title} services and would like to discuss my project requirements. Could you please provide more information?`
 
   return (
     <>
@@ -63,10 +63,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
             src={service.image}
             alt={service.title}
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-30"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/80 to-purple-900/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/50 to-purple-900/60" />
         </div>
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -225,7 +225,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
       )}
 
       {/* CTA Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+      <section id="contact" className="py-20 bg-gradient-to-br from-blue-600 to-sky-600 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">

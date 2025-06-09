@@ -13,7 +13,7 @@ export function WhatsAppFloat() {
     return () => clearTimeout(timer)
   }, [])
 
-  const whatsappUrl = `https://wa.me/${companyInfo.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}?text=Hi! I'm interested in your services. Can you help me?`
+  const whatsappUrl = `https://wa.me/${companyInfo.contact.whatsapp.replace(/\+/g, '').replace(/\s/g, '')}?text=Hi, LogixBeam Team! I'm interested in your services and would like to discuss my requirements. Could you please assist me?`
 
   if (!isVisible) return null
 

@@ -1,30 +1,33 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
 import Image from 'next/image'
 import { companyInfo } from '@/data/company'
 
-// Counter animation hook
+// Custom hook for counting animation
 function useCounter(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   const animate = () => {
-    if (hasAnimated) return
-    setHasAnimated(true)
+    if (isAnimating) return
+    setIsAnimating(true)
+    setCount(0)
     
-    let startTime: number
-    const step = (currentTime: number) => {
-      if (!startTime) startTime = currentTime
-      const progress = Math.min((currentTime - startTime) / duration, 1)
-      setCount(Math.floor(progress * end))
-      if (progress < 1) {
-        requestAnimationFrame(step)
+    const increment = end / (duration / 16)
+    let current = 0
+    
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= end) {
+        setCount(end)
+        clearInterval(timer)
+        setIsAnimating(false)
+      } else {
+        setCount(Math.floor(current))
       }
-    }
-    requestAnimationFrame(step)
+    }, 16)
   }
 
   return { count, animate }
@@ -62,7 +65,7 @@ function StatCard({
       transition={{ duration: 0.6, delay: delay / 1000 }}
       className="text-center"
     >
-      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+      <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
         <i className={`${icon} text-2xl text-white`}></i>
       </div>
       <motion.div 
@@ -78,18 +81,18 @@ function StatCard({
 }
 
 export function AboutSection() {
-  const stats = [
-    { number: 50, suffix: '+', label: 'Projects Completed', icon: 'fas fa-rocket', delay: 0 },
-    { number: 5, suffix: '+', label: 'Years Experience', icon: 'fas fa-calendar-alt', delay: 200 },
-    { number: 24, suffix: '/7', label: 'Support Available', icon: 'fas fa-headset', delay: 400 },
-    { number: 100, suffix: '%', label: 'Client Satisfaction', icon: 'fas fa-heart', delay: 600 },
+  const achievements = [
+    { title: 'Modern Tech Stack', description: 'Latest technologies and frameworks' },
+    { title: 'Agile Methodology', description: 'Flexible and iterative development' },
+    { title: 'Quality Assurance', description: 'Comprehensive testing and optimization' },
+    { title: 'Continuous Support', description: 'Ongoing maintenance and updates' },
   ]
 
-  const achievements = [
-    { title: '99.9% Uptime', description: 'Guaranteed server reliability' },
-    { title: 'Lightning Fast', description: 'Average 2s page load time' },
-    { title: 'Secure & Safe', description: 'Enterprise-grade security' },
-    { title: 'Global Reach', description: 'Clients across 10+ countries' },
+  const coreValues = [
+    { title: 'Quality First', description: 'Every line of code is crafted with precision and attention to detail', icon: 'fas fa-gem' },
+    { title: 'Client-Focused', description: 'Your success is our priority - we listen, understand, and deliver', icon: 'fas fa-user-friends' },
+    { title: 'Modern Solutions', description: 'Latest technologies and best practices for future-ready applications', icon: 'fas fa-rocket' },
+    { title: 'Transparent Process', description: 'Clear communication and regular updates throughout your project journey', icon: 'fas fa-eye' },
   ]
 
   return (
@@ -108,12 +111,12 @@ export function AboutSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="inline-flex items-center px-4 py-2 mb-6 bg-purple-100 text-purple-600 rounded-full text-sm font-medium"
+            className="inline-flex items-center px-4 py-2 mb-6 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
           >
             <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-2 h-2 bg-purple-500 rounded-full mr-2"
+              className="w-2 h-2 bg-blue-600 rounded-full mr-2"
             />
             About LogixBeam
           </motion.div>
@@ -157,9 +160,9 @@ export function AboutSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100"
+                  className="p-4 bg-gradient-to-br from-blue-50 to-sky-50 rounded-xl border border-blue-100"
                 >
-                  <div className="font-bold text-blue-600 text-sm">
+                  <div className="font-bold text-blue-700 text-sm">
                     {achievement.title}
                   </div>
                   <div className="text-gray-600 text-xs mt-1">
@@ -204,7 +207,7 @@ export function AboutSection() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl"
+                className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center shadow-xl"
               >
                 <i className="fas fa-code text-2xl text-white"></i>
               </motion.div>
@@ -220,7 +223,7 @@ export function AboutSection() {
                   ease: "easeInOut",
                   delay: 1
                 }}
-                className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-xl"
+                className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl"
               >
                 <i className="fas fa-lightbulb text-xl text-white"></i>
               </motion.div>
@@ -228,26 +231,48 @@ export function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Stats Section */}
+        {/* Core Values Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-3xl p-8 lg:p-12"
+          className="bg-gradient-to-br from-blue-50 via-white to-sky-50 rounded-3xl p-8 lg:p-12"
         >
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Our Impact in Numbers
+              Why Choose LogixBeam
             </h3>
             <p className="text-lg text-gray-600">
-              Trusted by businesses worldwide to deliver exceptional results
+              Our commitment to excellence drives everything we do
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <StatCard key={stat.label} {...stat} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {coreValues.map((value, index) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100"
+              >
+                <motion.div
+                  whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-16 h-16 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                >
+                  <i className={`${value.icon} text-2xl text-white`}></i>
+                </motion.div>
+                <h4 className="text-xl font-bold text-gray-900 mb-3">
+                  {value.title}
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {value.description}
+                </p>
+              </motion.div>
             ))}
           </div>
 
@@ -257,30 +282,30 @@ export function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             viewport={{ once: true }}
-            className="mt-12 pt-8 border-t border-gray-200"
+            className="mt-16 pt-12 border-t border-gray-200"
           >
-            <div className="text-center mb-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                Certified & Trusted
-              </h4>
-              <p className="text-sm text-gray-600">
-                Industry-recognized standards and partnerships
+            <div className="text-center mb-8">
+              <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                Technologies We Work With
               </p>
             </div>
-            
             <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-              {['ISO Certified', 'GDPR Compliant', 'SOC 2 Type II', 'AWS Partner', '24/7 Monitoring'].map((badge, index) => (
-                <motion.div
-                  key={badge}
+              {[
+                'React', 'Next.js', 'Node.js', 'TypeScript', 'MongoDB', 'PostgreSQL',
+                'AWS', 'Docker', 'Kubernetes', 'GraphQL', 'Python', 'Django',
+                'Laravel', 'Livewire', 'Vue.js'
+              ].map((tech, index) => (
+                <motion.span
+                  key={tech}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                  whileInView={{ opacity: 0.6, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-center space-x-2 px-4 py-2 bg-white rounded-full shadow-sm border"
+                  whileHover={{ opacity: 1, scale: 1.1 }}
+                  className="text-sm font-medium text-gray-600 px-3 py-1 bg-white rounded-full border border-gray-200 hover:border-blue-300 transition-all duration-200"
                 >
-                  <i className="fas fa-shield-alt text-green-500 text-sm"></i>
-                  <span className="text-sm font-medium text-gray-700">{badge}</span>
-                </motion.div>
+                  {tech}
+                </motion.span>
               ))}
             </div>
           </motion.div>
