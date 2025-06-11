@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// Determine if we're using a custom domain or GitHub Pages subdirectory
-const isGitHubPages = process.env.GITHUB_PAGES === 'true'
-const basePath = isGitHubPages ? '/logixbeam-nextjs' : ''
+// Determine if we're using GitHub Pages subdirectory or custom domain
+const useSubdirectory = process.env.USE_SUBDIRECTORY === 'true'
+const basePath = useSubdirectory ? '/logixbeam-nextjs' : ''
 
 const nextConfig: NextConfig = {
   // Configure for static export (GitHub Pages)
