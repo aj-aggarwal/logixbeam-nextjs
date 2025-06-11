@@ -1,84 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { companyInfo } from '@/data/company'
-
-// Custom hook for counting animation
-function useCounter(end: number, duration: number = 2000) {
-  const [count, setCount] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-
-  const animate = () => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setCount(0)
-    
-    const increment = end / (duration / 16)
-    let current = 0
-    
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= end) {
-        setCount(end)
-        clearInterval(timer)
-        setIsAnimating(false)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, 16)
-  }
-
-  return { count, animate }
-}
-
-function StatCard({ 
-  number, 
-  suffix = '', 
-  label, 
-  icon, 
-  delay = 0 
-}: { 
-  number: number
-  suffix?: string
-  label: string
-  icon: string
-  delay?: number
-}) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const { count, animate } = useCounter(number)
-
-  useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(animate, delay)
-      return () => clearTimeout(timer)
-    }
-  }, [isInView, animate, delay])
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: delay / 1000 }}
-      className="text-center"
-    >
-      <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-        <i className={`${icon} text-2xl text-white`}></i>
-      </div>
-      <motion.div 
-        className="text-4xl font-bold text-gray-900 mb-2"
-        animate={{ scale: isInView ? [1, 1.1, 1] : 1 }}
-        transition={{ duration: 0.5, delay: (delay + 1000) / 1000 }}
-      >
-        {count}{suffix}
-      </motion.div>
-      <div className="text-gray-600 font-medium">{label}</div>
-    </motion.div>
-  )
-}
 
 export function AboutSection() {
   const achievements = [

@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import { companyInfo, jsonLdData } from "@/data/company";
 import { WhatsAppFloat } from "@/components/ui/whatsapp-float";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -131,6 +132,23 @@ export default function RootLayout({
         />
       </head>
       <body className={`${poppins.className} antialiased text-gray-900 bg-white`}>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${companyInfo.analytics.googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${companyInfo.analytics.googleAnalyticsId}', {
+              page_title: document.title,
+              page_location: window.location.href,
+            });
+          `}
+        </Script>
+
         {children}
         <WhatsAppFloat />
       </body>

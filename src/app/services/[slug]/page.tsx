@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Navigation } from '@/components/marketing/navigation'
 import { Footer } from '@/components/marketing/footer'
+import { ServiceTracker } from '@/components/analytics/service-tracker'
 import { services, getServiceBySlug } from '@/data/services'
 import { companyInfo } from '@/data/company'
 
@@ -54,6 +55,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      <ServiceTracker serviceName={service.title} />
       <Navigation />
       <main className="min-h-screen pt-16">
         {/* Hero Section */}

@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { companyInfo } from '@/data/company'
+import { trackContactFormSubmit, trackPhoneClick, trackEmailClick } from '@/lib/analytics'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -48,13 +49,14 @@ export function ContactSection() {
       })
 
       if (response.ok) {
+        trackContactFormSubmit()
         setSubmitted(true)
         reset()
         setTimeout(() => setSubmitted(false), 5000)
       } else {
         throw new Error('Failed to send message')
       }
-    } catch (err) {
+    } catch {
       setError('Failed to send message. Please try again or contact us directly.')
     } finally {
       setIsSubmitting(false)
@@ -200,7 +202,11 @@ export function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-gray-900">Phone</h4>
                     <p className="text-gray-600 mt-1">
-                      <a href={`tel:${companyInfo.contact.phone}`} className="hover:text-blue-600">
+                      <a 
+                        href={`tel:${companyInfo.contact.phone}`} 
+                        className="hover:text-blue-600"
+                        onClick={trackPhoneClick}
+                      >
                         {companyInfo.contact.phone}
                       </a>
                     </p>
@@ -217,7 +223,11 @@ export function ContactSection() {
                   <div>
                     <h4 className="font-semibold text-gray-900">Email</h4>
                     <p className="text-gray-600 mt-1">
-                      <a href={`mailto:${companyInfo.contact.email}`} className="hover:text-blue-600">
+                      <a 
+                        href={`mailto:${companyInfo.contact.email}`} 
+                        className="hover:text-blue-600"
+                        onClick={trackEmailClick}
+                      >
                         {companyInfo.contact.email}
                       </a>
                     </p>

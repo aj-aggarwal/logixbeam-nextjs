@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { companyInfo } from '@/data/company'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 export function WhatsAppFloat() {
   const [isVisible, setIsVisible] = useState(false)
@@ -31,6 +32,7 @@ export function WhatsAppFloat() {
           className="relative block w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 cursor-pointer"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={trackWhatsAppClick}
           aria-label="Chat on WhatsApp"
           style={{ zIndex: 10000 }}
         >
