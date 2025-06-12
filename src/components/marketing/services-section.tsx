@@ -122,7 +122,7 @@ export function ServicesSection() {
                     {/* Technologies */}
                     {service.technologies && (
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {service.technologies.slice(0, 3).map((tech, techIndex) => (
+                        {service.technologies.slice(0, 3).map((tech) => (
                           <span
                             key={tech}
                             className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full font-medium"
