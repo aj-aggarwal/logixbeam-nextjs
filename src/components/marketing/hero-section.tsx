@@ -30,8 +30,8 @@ export function HeroSection() {
 
       {/* Subtle Geometric Accents */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Professional floating elements */}
-        {isClient && [...Array(8)].map((_, i) => {
+        {/* Professional floating elements - Optimized count */}
+        {isClient && [...Array(5)].map((_, i) => {
           const positions = [
             { x1: 15, y1: 20, x2: 25, y2: 30 },
             { x1: 80, y1: 25, x2: 85, y2: 35 },
@@ -60,10 +60,10 @@ export function HeroSection() {
                 scale: [0.8, 1, 0.8],
               }}
               transition={{
-                duration: 15 + (i * 2),
+                duration: 20 + (i * 3),
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: i * 0.8,
+                delay: i * 1.2,
               }}
               className={`absolute w-4 h-4 ${
                 i % 3 === 0 
@@ -76,10 +76,10 @@ export function HeroSection() {
           )
         })}
 
-        {/* Subtle grid pattern */}
+        {/* Subtle grid pattern - Optimized */}
         <motion.div
-          animate={{ opacity: [0.02, 0.08, 0.02] }}
-          transition={{ duration: 12, repeat: Infinity }}
+          animate={{ opacity: [0.02, 0.06, 0.02] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -94,31 +94,31 @@ export function HeroSection() {
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-6xl mx-auto"
         >
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
             className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight tracking-tight"
           >
             <motion.span 
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="block text-white drop-shadow-2xl"
             >
               {companyInfo.hero.title.split(' ').slice(0, -3).join(' ')}
             </motion.span>
             <motion.span 
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="block bg-gradient-to-r from-blue-400 via-sky-400 to-slate-300 bg-clip-text text-transparent"
               style={{
                 backgroundSize: '200% 200%',
@@ -170,8 +170,8 @@ export function HeroSection() {
                 <Link href="/#services" className="font-poppins flex items-center">
                   <motion.i 
                     className="fas fa-code mr-3 text-xl"
-                    animate={{ rotate: [0, 5, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 4 }}
+                    animate={{ rotate: [0, 3, 0] }}
+                    transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 6 }}
                   />
                   {companyInfo.hero.ctaText}
                 </Link>
@@ -195,8 +195,8 @@ export function HeroSection() {
                 <Link href="/#contact" className="font-poppins flex items-center">
                   <motion.i 
                     className="fas fa-handshake mr-3 text-xl"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{ duration: 2.5, repeat: Infinity }}
+                    animate={{ scale: [1, 1.03, 1] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                   />
                   Get Free Consultation
                 </Link>

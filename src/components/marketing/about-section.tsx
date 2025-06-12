@@ -37,11 +37,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             className="inline-flex items-center px-4 py-2 mb-6 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
           >
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-2 h-2 bg-blue-600 rounded-full mr-2"
-            />
+            <div className="w-2 h-2 bg-blue-600 rounded-full mr-2" />
             About LogixBeam
           </motion.div>
           
@@ -120,37 +116,14 @@ export function AboutSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent" />
               
-              {/* Floating Elements */}
-              <motion.div
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: [0, 2, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center shadow-xl"
-              >
+              {/* Static Decorative Elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-blue-600 to-sky-500 rounded-2xl flex items-center justify-center shadow-xl">
                 <i className="fas fa-code text-2xl text-white"></i>
-              </motion.div>
+              </div>
               
-              <motion.div
-                animate={{
-                  y: [0, 10, 0],
-                  rotate: [0, -2, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1
-                }}
-                className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl"
-              >
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl">
                 <i className="fas fa-lightbulb text-xl text-white"></i>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

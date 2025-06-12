@@ -61,11 +61,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {/* Background shine effect for gradient buttons */}
+        {/* Subtle shine effect for gradient buttons */}
         {variant === "gradient" && (
           <span 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-all duration-700 pointer-events-none" 
-            style={{ width: "200%" }} 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
           />
         )}
         
